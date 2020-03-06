@@ -1,0 +1,14 @@
+FROM jupyter/scipy-notebook
+USER root
+
+# 黒背景設定を追加
+RUN mkdir -p /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/apputils-extension
+RUN echo '{"theme":"JupyterLab Dark"}' > \
+  /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/themes.jupyterlab-settings
+
+# "--notebook-dir=/workdir" => Jupyter Labのルートとなるディレクトリを指定
+WORKDIR /workdir
+CMD ["--notebook-dir=/workdir"]
+
+# pipはここ
+RUN pip install --upgrade pip

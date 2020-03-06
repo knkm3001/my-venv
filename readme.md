@@ -1,0 +1,101 @@
+# win10 vagrant/virtualbox+docker開発環境 構築手順
+
+
+## 目的
+
+Win10だと開発しにくいので、仮想化環境にUbuntuを動かしてdockerを適宜作動させることで  
+linux環境下での開発を実現。
+
+
+## デプロイ(自分のPCの場合)
+
+C:\Vagrant\Ubuntu18.04  
+ここに Vagrantfile
+
+
+## 手順概要
+
+1. vagrant/virtualbox で仮想化環境にUbuntuを構築
+2. dockerをインストール
+3. 各種dockerコンテナを構築
+
+## 参考URL
+
+- [Windows10+VirtualBox+VagrantでDockerはじめました](http://www.nct-inc.jp/engineer_blog/2807/)  
+- [さくらのナレッジ Docker入門](https://knowledge.sakura.ad.jp/13265/)  
+- [windows10にVirtualBox+VagrantでUbuntu18.04 LTS環境を構築してみたのでメモ](https://nonbirigogo.com/2019/04/13/windows10%E3%81%ABvirtualboxvagrant%E3%81%A7ubuntu18-04-lts%E7%92%B0%E5%A2%83%E3%82%92%E6%A7%8B%E7%AF%89%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/)
+- [Get Docker Engine - Community for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1) ... Docker 公式 インストール手順
+- [Docker 公式リファレンス](http://docs.docker.jp/index.html)
+- [Docker 公式リファレンス Dockerfile](http://docs.docker.jp/engine/reference/builder.html)
+- [Docker 公式リファレンス Docker Compose](http://docs.docker.jp/compose/toc.html)
+
+
+
+## 手順
+
+### 1. vagrant/virtualbox で仮想化環境にUbuntuを構築  
+
+   1. 公式サイトから[vagrant](https://www.vagrantup.com/) & [virtualbox](https://www.virtualbox.org/)をダウンロードする。  
+   2. cmdから``` mkdir C:\Vagrant\Ubuntu18.04 ``` とディレクトリ作成。  
+   3. そのディレクトリで以下のコマンド実行。    
+      ```vagrant init bento/ubuntu-18.04``` ※ベンダー名/box名  
+   1. こうするとvagrantfileができるから編集(vagrantfileはレポジトリのものをコピペ)  
+   2. ```vagrant up``` で起動。  
+   3. このとき背後でvagrantfileに記述されたshellが実行されている。
+      apt によるGUIのダウンロードが1時間以上かかるが静かに見守る。 
+      またこのとき virtualbox が立ち上がって Ubuntu のCUIログイン画面になるけどなにもしないでよい。  
+      (id/pw vagrant/vagrant でログインはできる)  
+   3. ダウンロードが終わったら terataerm か virtualboxのCUI画面(ログインせずに放っておいたもの)で接続してログインしてみる。
+      ip : 127.0.0.1 もしくは vagrantファイル記述のIPアドレス(192.168.1.32)  
+      port : 2222  
+      id/pw : vagrant/vagrant  
+   4. ログインに成功したら再起動する。
+   5. そうするとvirtualboxでubuntuのログイン画面が現れるので上記のid/pwでログインする  
+   6. これを参考に日本語設定をGUIで行う。  
+       [Ubuntu 18.04 その91 - 日本語環境の構築と確認・日本語入力の設定](https://kledgeb.blogspot.com/2018/04/ubuntu-1804-91.html)  
+      日本語の入力はこれを参考に  [Ubuntu 18.04: iBus + Mozcで日本語入力する](https://www.hiroom2.com/2018/04/29/ubuntu-1804-ibus-mozc-ja/)  
+      右上の画面で 日本語(Mozc)の入力モードが **あ** であることを確認。  
+      Ctrl+space で変換するなら、Mozc プロパティのキーの設定(最初はMS-IME)から編集→変換中  
+      入力キー Hankaku/Zenkaku のものを Ctrl+Spaceにする。そんで再起動。  
+
+
+### 2. dockerをインストール  
+
+   1. [公式サイト Get Docker Engine - Community for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1) に従ってインストールする。  
+   1. ```sudo docker run hello-world``` で動作確認。うまくいけば成功。  
+   1. docker composeを導入。バージョンは適宜 [dockerのgithub](https://github.com/docker/compose/releases) をみて判断する  
+    ```sudo curl -L https://github.com/docker/compose/releases/download/<version hogehoge>/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose```  
+    ```sudo chmod +x /usr/local/bin/docker-compose```  
+    バージョンを確認  
+    ```docker-compose --version``` 表示すれば成功。  
+   1. このままだと、dockerコマンドにsudoが必要。一般ユーザで使えるようにする  
+      docker グループにユーザーを追加  
+      ```sudo gpasswd -a $(whoami) docker```  
+      docker.sock にグループ書き込み権限を付与  
+      ```sudo chgrp docker /var/run/docker.sock```  
+      ```sudo reboot```  
+      ```docker ps -a```で確認。  
+   
+   ### 3. 各種dockerコンテナを構築
+
+   0. まずサンプルとしてnginxコンテナを例示する(忘れたとき用)  
+        1. コンテナの基礎  
+        めんどくさいからこれみてね  [Docker入門（第二回）～Dockerセットアップ、コンテナ起動～](https://knowledge.sakura.ad.jp/13795/)  
+        ただ注意点として、ホストOS(windows)からアクセスするのは、  
+        **vagrantfaileに書いたIPアドレス＋コンテナで指定したポート番号**  というかたちになる  
+        ex. 
+        vagrantfile...ip:192.168.1.32  
+        ```docker run -d --name nginx-container -p 8181:80 nginx```  
+        としたときこんな感じのURLでアクセス 
+        http://192.168.1.32:8181/  
+        1. docker compose  
+         docker network は、docker composeで起動したコンテナ郡はすべておなじネットワークに所属する。  
+         これ見てね  
+         [Docker入門（第六回）〜Docker Compose〜](https://knowledge.sakura.ad.jp/16862/)
+
+   1. JupyterLab + python 環境  
+      1. jupyter/scipy-notebook をもとに作成
+      2. 基本的には任意のディレクトリにdockerフォルダをデプロイ
+      3. jupyterlabで```docker-compose up --build``` で最初はビルド
+      4. 次からは```docker-compose up/down```
+

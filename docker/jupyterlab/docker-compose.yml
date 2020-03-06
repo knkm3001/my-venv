@@ -1,0 +1,17 @@
+version: '3'
+services:
+    jupyterlab:
+        # ビルドからつくる場合
+        build:
+           context: .
+           dockerfile: dockerfile_jupyterlab
+        container_name: jupyterlab
+        ports:
+            - "8888:8888"
+        environment:
+            TZ: Asia/Tokyo
+        # workのパーミッションに注意！
+        volumes:
+            - "./work:/workdir"
+        # tokenいれなければパスワードなしで実行
+        command: start.sh jupyter lab --NotebookApp.token=''
