@@ -9,11 +9,9 @@ linux環境下での開発を実現。参考URLをもとに作成。
 
 ## 参考URL
 
-
-- [windows10にVirtualBox+VagrantでUbuntu18.04 LTS環境を構築してみたのでメモ](https://nonbirigogo.com/2019/04/13/windows10%E3%81%ABvirtualboxvagrant%E3%81%A7ubuntu18-04-lts%E7%92%B0%E5%A2%83%E3%82%92%E6%A7%8B%E7%AF%89%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/)
+- [Ubuntu 18.04 の日本語版デスクトップ環境を Vagrant + VirtualBox で作成する](https://kmiya-bbm.hatenablog.com/entry/2019/01/07/194238)
 - [Windows10+VirtualBox+VagrantでDockerはじめました](http://www.nct-inc.jp/engineer_blog/2807/)  
-- [Get Docker Engine - Community for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1) ... Docker 公式 インストール手順
-- [Docker 公式リファレンス](http://docs.docker.jp/index.html)
+- [Docker 公式リファレンス for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1)
 - [Docker 公式リファレンス Dockerfile](http://docs.docker.jp/engine/reference/builder.html)
 - [Docker 公式リファレンス Docker Compose](http://docs.docker.jp/compose/toc.html)
 - [さくらのナレッジ Docker入門](https://knowledge.sakura.ad.jp/13265/)  
