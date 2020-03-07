@@ -92,4 +92,9 @@ linux環境下での開発を実現。参考URLをもとに作成。
       2. 基本的には任意のディレクトリにdockerフォルダをデプロイ
       3. jupyterlabで```docker-compose up --build``` で最初はビルド
       4. 次からは```docker-compose up/down```
+      
+## TODO
+- 共有フォルダの設定の見直し
+- ポート設定の見直し
+- IPアドレス設定の見直し
 
