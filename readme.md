@@ -4,20 +4,8 @@
 ## 目的
 
 Win10だと開発しにくいので、仮想化環境にUbuntuを動かしてdockerを適宜作動させることで  
-linux環境下での開発を実現。
+linux環境下での開発を実現。参考URLをもとに作成。
 
-
-## デプロイ(自分のPCの場合)
-
-C:\Vagrant\Ubuntu18.04  
-ここに Vagrantfile
-
-
-## 手順概要
-
-1. vagrant/virtualbox で仮想化環境にUbuntuを構築
-2. dockerをインストール
-3. 各種dockerコンテナを構築
 
 ## 参考URL
 
@@ -31,13 +19,18 @@ C:\Vagrant\Ubuntu18.04
 - [さくらのナレッジ Docker入門](https://knowledge.sakura.ad.jp/13265/)  
 
 
+## 手順概要
+
+1. vagrant/virtualbox で仮想化環境にUbuntuを構築
+2. dockerをインストール
+3. 各種dockerコンテナを構築
 
 ## 手順
 
 ### 1. vagrant/virtualbox で仮想化環境にUbuntuを構築  
 
    1. 公式サイトから[vagrant](https://www.vagrantup.com/) & [virtualbox](https://www.virtualbox.org/)をダウンロードする。  
-   2. cmdから``` mkdir C:\Vagrant\Ubuntu18.04 ``` とディレクトリ作成。  
+   2. cmdから``` mkdir C:\Vagrant\Ubuntu18.04 ``` とディレクトリ作成(ディレクトリの場所は任意)。  
    3. そのディレクトリで以下のコマンド実行。    
       ```vagrant init bento/ubuntu-18.04``` ※ベンダー名/box名  
    1. こうするとvagrantfileができるから編集(vagrantfileはレポジトリのものをコピペ)  
