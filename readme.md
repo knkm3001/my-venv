@@ -21,13 +21,14 @@ C:\Vagrant\Ubuntu18.04
 
 ## 参考URL
 
-- [Windows10+VirtualBox+VagrantでDockerはじめました](http://www.nct-inc.jp/engineer_blog/2807/)  
-- [さくらのナレッジ Docker入門](https://knowledge.sakura.ad.jp/13265/)  
+
 - [windows10にVirtualBox+VagrantでUbuntu18.04 LTS環境を構築してみたのでメモ](https://nonbirigogo.com/2019/04/13/windows10%E3%81%ABvirtualboxvagrant%E3%81%A7ubuntu18-04-lts%E7%92%B0%E5%A2%83%E3%82%92%E6%A7%8B%E7%AF%89%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%81%AE%E3%81%A7%E3%83%A1%E3%83%A2/)
+- [Windows10+VirtualBox+VagrantでDockerはじめました](http://www.nct-inc.jp/engineer_blog/2807/)  
 - [Get Docker Engine - Community for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1) ... Docker 公式 インストール手順
 - [Docker 公式リファレンス](http://docs.docker.jp/index.html)
 - [Docker 公式リファレンス Dockerfile](http://docs.docker.jp/engine/reference/builder.html)
 - [Docker 公式リファレンス Docker Compose](http://docs.docker.jp/compose/toc.html)
+- [さくらのナレッジ Docker入門](https://knowledge.sakura.ad.jp/13265/)  
 
 
 
@@ -41,7 +42,7 @@ C:\Vagrant\Ubuntu18.04
       ```vagrant init bento/ubuntu-18.04``` ※ベンダー名/box名  
    1. こうするとvagrantfileができるから編集(vagrantfileはレポジトリのものをコピペ)  
    2. ```vagrant up``` で起動。  
-   3. このとき背後でvagrantfileに記述されたshellが実行されている。
+   3. このときvagrantfileに記述されたshellが実行されている。
       apt によるGUIのダウンロードが1時間以上かかるが静かに見守る。 
       またこのとき virtualbox が立ち上がって Ubuntu のCUIログイン画面になるけどなにもしないでよい。  
       (id/pw vagrant/vagrant でログインはできる)  
@@ -51,11 +52,11 @@ C:\Vagrant\Ubuntu18.04
       id/pw : vagrant/vagrant  
    4. ログインに成功したら再起動する。
    5. そうするとvirtualboxでubuntuのログイン画面が現れるので上記のid/pwでログインする  
-   6. これを参考に日本語設定をGUIで行う。  
-       [Ubuntu 18.04 その91 - 日本語環境の構築と確認・日本語入力の設定](https://kledgeb.blogspot.com/2018/04/ubuntu-1804-91.html)  
-      日本語の入力はこれを参考に  [Ubuntu 18.04: iBus + Mozcで日本語入力する](https://www.hiroom2.com/2018/04/29/ubuntu-1804-ibus-mozc-ja/)  
+   6. これを参考に日本語設定をGUIで行う。[Ubuntu 18.04 その91 - 日本語環境の構築と確認・日本語入力の設定](https://kledgeb.blogspot.com/2018/04/ubuntu-1804-91.html)  
+      日本語の入力はこれを参考に  
+      [Ubuntu 18.04: iBus + Mozcで日本語入力する](https://www.hiroom2.com/2018/04/29/ubuntu-1804-ibus-mozc-ja/)  
       右上の画面で 日本語(Mozc)の入力モードが **あ** であることを確認。  
-      Ctrl+space で変換するなら、Mozc プロパティのキーの設定(最初はMS-IME)から編集→変換中  
+      ※Ctrl+space で変換するなら、Mozc プロパティのキーの設定(最初はMS-IME)から編集→変換中  
       入力キー Hankaku/Zenkaku のものを Ctrl+Spaceにする。そんで再起動。  
 
 
